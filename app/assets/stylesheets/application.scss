@@ -1,0 +1,9 @@
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
+@import "datatables";
+@import "pagination";
+@import "font-awesome";
+@import "devise_errors";
+@import "users";
+@import "common";
+@import "template/*";

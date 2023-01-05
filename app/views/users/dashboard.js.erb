@@ -1,0 +1,12 @@
+<% case params[:pagintion_for] %>
+<% when 'payments' %>
+  $('#paymentListContainer').html('<%= escape_javascript(render :partial => 'payments_list')%>');
+<% when 'pay_ins' %>
+  $('#payInCardsContainer').html('<%= escape_javascript(render :partial => 'pay_in_cards')%>');
+<% else %>
+  $('#paymentListContainer').html('<%= escape_javascript(render :partial => 'payments_list')%>');
+  $('#payInCardsContainer').html('<%= escape_javascript(render :partial => 'pay_in_cards')%>');
+<% end %>
+$('#userInfoContainer').html('<%= escape_javascript(render :partial => 'user_info') if @user_info.present? %>')
+makePaymentListPaginationAjaxify();
+makepayInListPaginationAjaxify();

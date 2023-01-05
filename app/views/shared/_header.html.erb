@@ -1,0 +1,110 @@
+<header class="header-area header-sticky">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a href="<%= root_path %>" class="logo">
+            <%# <img src="assets/images/logoTwo.png" alt="EduWell Template"> %>
+            <%= image_tag asset_path('template/logoTwo.png', alt: '') %>
+          </a>
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="nav">
+            <li class="scroll-to-section"><%= link_to 'Home', root_path, class: 'nav-link active' %></li>
+            <% unless user_signed_in? %>
+              <li class="scroll-to-section"><%= link_to 'SignIn', new_user_session_path, class: "nav-link" %></li>
+              <li class="scroll-to-section"><%= link_to 'SignUp', new_user_registration_path, class: "nav-link" %></li>
+            <% else %>
+              <li class="scroll-to-section"><%= link_to 'Dashboard', users_dashboard_path, class: "nav-link" %></li>
+              <li class="has-sub">
+              <a href="javascript:void(0)">Pay in/out Detail</a>
+              <ul class="sub-menu">
+                <li><%= link_to 'Growth', show_growth_pay_ins_path, class: 'dropdown-item' %></li>
+                <li><%= link_to 'History', payment_history_path, class: 'dropdown-item' %></li>
+              </ul>
+              </li>
+              <li class="has-sub">
+              <a href="javascript:void(0)">Participants</a>
+              <ul class="sub-menu">
+                <li><%= link_to 'Referrals', users_path(filtered_with: 'referrals'), class: 'dropdown-item' %></li>
+                <li><%= link_to 'Participants', users_path(filtered_with: 'participants'), class: 'dropdown-item' %></li>
+              </ul>
+              </li>
+              <li class="has-sub">
+              <a href="javascript:void(0)">Account</a>
+              <ul class="sub-menu">
+                <li><%= link_to 'Accounts', accounts_path, class: 'dropdown-item' %></li>
+                <li><%= link_to 'Wallets', wallets_path, class: 'dropdown-item' %></li>
+              </ul>
+              </li>
+              <li class="has-sub">
+              <a href="javascript:void(0)"><%= "#{current_user.name}(#{current_user.role})" %></a>
+              <ul class="sub-menu">
+                <li data-keepOpenOnClick><span class='text-bold'>Referral link:</span> <span id='myReferralId' class='fw-lighter'><%= new_user_registration_url(invited_by: referal_id(current_user)) %></span></li>
+                <li><%= link_to 'Profile', edit_user_registration_path, class: "nav-link" %></li>
+                <li><%= link_to 'Logout', destroy_user_session_path, method: 'delete', class: "nav-link" %></li>
+              </ul>
+              </li>
+            <% end %>
+          </ul>
+          <a class='menu-trigger'>
+            <span>Menu</span>
+          </a>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div id='googleTranslater' class='float-end'></div>
+</header>
+
+<script>
+  $(document).ready(function() {
+    //according to loftblog tut
+    $('.nav li:first').addClass('active');
+
+    // var showSection = function showSection(section, isAnimate) {
+    //   var
+    //     direction = section.replace(/#/, ''),
+    //     reqSection = $('.section').filter('[data-section="' + direction + '"]'),
+    //     reqSectionPos = reqSection.offset().top - 0;
+
+    //   if (isAnimate) {
+    //     $('body, html').animate({
+    //         scrollTop: reqSectionPos
+    //       },
+    //       800);
+    //   } else {
+    //     $('body, html').scrollTop(reqSectionPos);
+    //   }
+
+    // };
+
+    var checkSection = function checkSection() {
+      $('.section').each(function() {
+        var
+          $this = $(this),
+          topEdge = $this.offset().top - 80,
+          bottomEdge = topEdge + $this.height(),
+          wScroll = $(window).scrollTop();
+        if (topEdge < wScroll && bottomEdge > wScroll) {
+          var
+            currentId = $this.data('section'),
+            reqLink = $('a').filter('[href*=\\#' + currentId + ']');
+          reqLink.closest('li').addClass('active').
+          siblings().removeClass('active');
+        }
+      });
+    };
+
+    // $('.main-menu, .responsive-menu, .scroll-to-section').on('click', 'a', function(e) {
+    //   e.preventDefault();
+    //   showSection($(this).attr('href'), true);
+    // });
+
+    $(window).scroll(function() {
+      checkSection();
+    });
+  })
+</script>

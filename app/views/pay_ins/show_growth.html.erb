@@ -1,0 +1,31 @@
+<h2>Active Pay Ins</h2>
+<div class='row'>
+  <table class="table datatable growth with-currency-filter">
+    <thead>
+      <tr>
+        <th>Order Id</th>
+        <th>Status</th>
+        <th>Currency</th>
+        <th>Amount</th>
+        <th>Growth Start Date</th>
+        <th>Growth End Date</th>
+        <th>Maturity Amount</th>
+        <th>Upto Today</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @active_pay_ins.each do |pay_in| %>
+        <tr>
+          <td><%= uniq_number(pay_in) %></td>
+          <td><%= pay_in.status %></td>
+          <td><%= pay_in.currency.upcase %></td>
+          <td><%= pay_in.amount %></td>
+          <td><%= pay_in.growth_start_time %></td>
+          <td><%= pay_in.growth_end_time %></td>
+          <td><%= number_with_precision(pay_in.matuarity_amount, precision: 2) %></td>
+          <td><%= number_with_precision(pay_in.current_amount, precision: 2) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

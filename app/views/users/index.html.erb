@@ -1,0 +1,5 @@
+<% if params[:filtered_with] == 'participants' %>
+  <%= render partial: 'participants' %>
+<% else %>
+  <%= render partial: 'referrals' %>
+<% end %>

@@ -1,0 +1,24 @@
+<table class="table datatable with-default-setting">
+  <thead>
+    <tr>
+      <th>Participant</th>
+      <th>Name</th>
+      <th>Guider</th>
+      <th>Mobile</th>
+      <th>Registration Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= "#{User::REFERRAL_ID_PREFIX}#{user.id}" %></td>
+        <td><%= user.name %></td>
+        <td><%= user.parent.name %></td>
+        <td><%= user.mobile %></td>
+        <td><%= user.created_at.in_time_zone %></td>
+        <td><%= user.status.titleize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

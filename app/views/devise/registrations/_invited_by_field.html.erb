@@ -1,0 +1,9 @@
+<%# invited_by param will be present, when user hit any referral link %>
+<% if params[:invited_by].present? %>
+  <%= f.label :invited_by, class: 'form-label' %> <span class='h3'><%= params[:invited_by] %></span>
+  <%= f.hidden_field :invited_by, value: params[:invited_by], class: 'form-control' %>
+<% else %>
+  <%= f.label :invited_by, class: 'form-label' %>
+  <%= f.text_field :invited_by, value: params.dig(:user, :invited_by), class: 'form-control' %>
+  <div class='text-danger'><%= get_error_for(f.object, :invited_by) %></div>
+<% end %>

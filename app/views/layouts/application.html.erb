@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mmm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src='http://translate.google.com/translate_a/element.js?cb=initGoogleTranslater'></script>
+  </head>
+
+  <body>
+    <div id='loader' class='screen-centered d-none'>
+      <%= image_tag asset_path('processing.gif') %>
+    </div>
+    <%= render partial: 'shared/header' %>
+      <%= render partial: 'shared/flash' %>
+      <%= yield %>
+    <%#= render partial: 'shared/footer' %>
+  </body>
+</html>

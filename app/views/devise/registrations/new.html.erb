@@ -1,0 +1,76 @@
+<h2>Sign up</h2>
+<div class='row justify-content-center'>
+  <div class='col-md-6'>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="mb-3">
+        <%= render partial: 'invited_by_field', locals: {f: f} %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :name, class: 'form-label' %>
+        <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+        <div class='text-danger'><%= get_error_for(f.object, :name) %></div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :email, class: 'form-label' %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        <div class='text-danger'><%= get_error_for(f.object, :email) %></div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :mobile, class: 'form-label' %>
+        <%= f.text_field :mobile, class: 'form-control' %>
+        <div class='text-danger'><%= get_error_for(f.object, :mobile) %></div>
+        <span class='form-text'><em>with country code like +44 9999999999</em></span>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :country, class: 'form-label' %>
+        <%= f.country_select :country, {selected: params.dig(:user, :country) || "GB"}, {class: 'form-control'} %>
+        <div class='text-danger'><%= get_error_for(f.object, :country) %></div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :time_zone, class: 'form-label' %>
+        <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.all.sort, {}, {class: 'form-control'} %>
+        <div class='text-danger'><%= get_error_for(f.object, :time_zone) %></div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :wallet_number, class: 'form-label' %>
+        <%= f.text_field :wallet_number, class: 'form-control' %>
+        <div class='text-danger'><%= get_error_for(f.object, :wallet_number) %></div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password, class: 'form-label' %>
+        <% if @minimum_password_length %>
+          <span class='form-text'><em>(<%= @minimum_password_length %> characters minimum)</em></span>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+        <div class='text-danger'><%= get_error_for(f.object, :password) %></div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation, class: 'form-label' %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+        <div class='text-danger'><%= get_error_for(f.object, :password_confirmation) %></div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.check_box :read_agreement, class: 'form-check-input' %>
+        <%= f.label :read_agreement, class: 'form-check-label' %>
+        <div class='text-danger'><%= get_error_for(f.object, :read_agreement) %></div>
+      </div>
+
+      <div class="actions mt-2 d-grid gap-2">
+        <%= f.submit "Sign up", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
+

@@ -1,0 +1,24 @@
+<div class='row'>
+  <nav class='mb-4'>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-assurance-tab" data-bs-toggle="tab" data-bs-target="#nav-assurance" type="button" role="tab" aria-controls="nav-assurance" aria-selected="true">Assurance</button>
+      <button class="nav-link" id="nav-pay-in-tab" data-bs-toggle="tab" data-bs-target="#nav-pay-in" type="button" role="tab" aria-controls="nav-pay-in" aria-selected="false">Pay In</button>
+      <button class="nav-link" id="nav-pay-out-tab" data-bs-toggle="tab" data-bs-target="#nav-pay-out" type="button" role="tab" aria-controls="nav-pay-out" aria-selected="false">Pay Out</button>
+      <button class="nav-link" id="nav-pay-out-tab" data-bs-toggle="tab" data-bs-target="#nav-referral-bonus" type="button" role="tab" aria-controls="nav-referral-bonus" aria-selected="false">Referral Bonus</button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-assurance" role="tabpanel" aria-labelledby="nav-assurance-tab">
+      <%= render partial: 'table', locals: {collection: @payments.assurance}%>
+    </div>
+    <div class="tab-pane fade" id="nav-pay-in" role="tabpanel" aria-labelledby="nav-pay-in-tab">
+      <%= render partial: 'table', locals: {collection: @payments.pay_in}%>
+    </div>
+    <div class="tab-pane fade" id="nav-pay-out" role="tabpanel" aria-labelledby="nav-pay-out-tab">
+      <%= render partial: 'table', locals: {collection: @payments.pay_out}%>
+    </div>
+    <div class="tab-pane fade" id="nav-referral-bonus" role="tabpanel" aria-labelledby="nav-referral-bonus-tab">
+      <%= render partial: 'table', locals: {collection_type: 'referral_bonus', collection: @payments.referral_bonus}%>
+    </div>
+  </div>
+</div>

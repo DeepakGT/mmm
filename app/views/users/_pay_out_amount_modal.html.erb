@@ -1,0 +1,39 @@
+<% data = pay_out_modal_data %>
+<% welcome_bonus = number_with_precision(data[:welcome_bonus], precision: 2).to_f %>
+<div class="modal fade" id="payOutAmountModal" tabindex="-1" aria-labelledby="payOutAmountModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="payOutAmountModalLabel">Pay Out</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Withdrawl currency: USDT</p>
+        <p>Withdrawl multiple of: 10</p>
+        <% if welcome_bonus.positive? %>
+          <p>Welcome Bonus: 5% of your first payIn Principal Amount</p>
+        <% end %>
+        <hr/>
+        <h4>Available Amount</h4>
+        <p>payIn value: <%= number_with_precision(data[:principal_amount], precision: 2) %></p>
+        <p>Growth value: <%= number_with_precision(data[:growth_amount], precision: 2) %></p>
+        <% if welcome_bonus.positive? %>
+          <p>Welcome Bonus: <%= number_with_precision(data[:welcome_bonus], precision: 2) %></p>
+        <% end %>
+        <hr/>
+        <h4>Earned Referral Bonus</h4>
+        <p>Amount: <%= number_with_precision(data[:total_referral_bonus_amount], precision: 2) %>
+        <hr/>
+        <div class='text-muted'>Amount added from your wallet: <%= data[:wallet_balance] %></div>
+        <hr/>
+        <p>Total: <%= number_with_precision(data[:total_amount], precision: 2) %></p>
+        <p>Cash Out: <%= number_with_precision(data[:releasable_amount], precision: 2) %></p>
+        <p>Remaining Balance: <%= number_with_precision(data[:not_releasable_amount], precision: 2) %></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <%= button_to "Place Order", {controller: "pay_outs", action: "create"}, remote: true, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+</div>

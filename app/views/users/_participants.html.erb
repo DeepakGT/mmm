@@ -1,0 +1,26 @@
+<table class="table datatable with-default-setting">
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Guider</th>
+      <th>Referrer</th>
+      <th>Status</th>
+      <th>Date of creation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.role %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td></td>
+        <td><%= user.parent.name %></td>
+        <td><%= user.status.titleize %></td>
+        <td><%= user.created_at.in_time_zone %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

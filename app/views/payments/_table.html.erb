@@ -1,0 +1,33 @@
+<% is_referral_bonus_collecion = local_assigns[:collection_type] == 'referral_bonus' %>
+<table class="table datatable history with-currency-filter">
+  <thead>
+    <tr>
+      <th>Order Id</th>
+      <th>Currency</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Tranaction Id</th>
+      <% if is_referral_bonus_collecion %>
+        <th>Active/Inactive</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% collection.each do |payment| %>
+      <% is_inactive_referral_bonus = is_referral_bonus_collecion && payment.referral_bonus.inactive? %>
+
+      <tr class="<%= 'inactive-row' if is_inactive_referral_bonus %>">
+        <td><%= uniq_number(payment) %></td>
+        <td><%= payment.currency.upcase %></td>
+        <td><%= payment.amount %></td>
+        <td><%= payment.created_at.to_date %></td>
+        <td><%= payment.status %></td>
+        <td><%= payment.transaction_id %></td>
+        <% if is_referral_bonus_collecion %>
+          <td><%= payment.referral_bonus.status %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

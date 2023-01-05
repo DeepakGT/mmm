@@ -1,0 +1,133 @@
+<section class="main-banner" id="top">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-6 align-self-center">
+        <div class="header-text">
+          <h3>User Dashboard</h3>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="d-flex rightTopContent">
+          <div class="right-image">
+            <img src="assets/images/member-1.jpg" alt="">
+          </div>
+          <div class="right-image-text">
+            <h3><%= current_user.name.titleize %></h3>
+            <ul class="p-0 d-flex justify-content-between">
+              <li>
+                <span class="text d-block">Pay In</span>
+                <span class="number d-block"><%= @user_info[:paid_usdt_pay_ins] %> USDT</span>
+                <span class="number d-block"><%= @user_info[:paid_trx_pay_ins] %> TRX</span>
+              </li>
+              <li>
+                <span class="text d-block">Pay Out</span>
+                <span class="number d-block"><%= @user_info[:paid_usdt_pay_outs] %> USDT</span>
+                <span class="number d-block"><%= @user_info[:paid_trx_pay_outs] %> TRX</span>
+              </li>
+            </ul>
+            <h6 class='small'><span class='text-bold'>Referral link:</span> <span id='myReferralId' class='fw-lighter'><%= new_user_registration_url(invited_by: referal_id(current_user)) %></span></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="status" id="status">
+  <div class="container">
+    <div class="tab-pane fade row show active justify-content-between">
+      <div class='row'>
+        <div id='userInfoContainer' class='col-md-6'>
+          <%= render partial: 'user_info' %>
+        </div>
+        <div id='systemInfoContainer' class='col-md-6'>
+        <%= render partial: 'system_info' %>
+        </div>
+      </div>
+      <div class='row' id='childrenFilters'>
+        <div class='col-md-4'>
+          <h5 class="text-center mb-4">User</h5>
+          <div class="referralContainer mb-5 mt-3 d-flex w-75 mx-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M447 56.25C443.5 42 430.7 31.1 416 31.1H96c-14.69 0-27.47 10-31.03 24.25L3.715 304.9C1.247 314.9 0 325.2 0 335.5v96.47c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48v-96.47c0-10.32-1.247-20.6-3.715-30.61L447 56.25zM352 352H160L128 288H72.97L121 96h270l48.03 192H384L352 352z"/></svg>
+            <div class="ms-4 w-100">
+              <%= select_tag 'user_id', options_for_select(current_user.self_and_descendants.except_roots.order(:name).collect{ |u| [children_select_lable(u), u.id] }.prepend(['All', 'all']), current_user.id), class: 'form-select', data: {filter: 'child'} %>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-4'>
+          <h5 class="text-center mb-4">Status</h5>
+          <div class="referralContainer mb-5 mt-3 d-flex w-75 mx-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M447 56.25C443.5 42 430.7 31.1 416 31.1H96c-14.69 0-27.47 10-31.03 24.25L3.715 304.9C1.247 314.9 0 325.2 0 335.5v96.47c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48v-96.47c0-10.32-1.247-20.6-3.715-30.61L447 56.25zM352 352H160L128 288H72.97L121 96h270l48.03 192H384L352 352z"/></svg>
+            <div class="ms-4 w-100">
+              <%= select_tag 'status', options_for_select(Payment.statuses.keys.prepend(['All', 'all'])), class: 'form-select', data: {filter: 'status'} %>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-4'>
+          <h5 class="text-center mb-4">Currency</h5>
+          <div class="referralContainer mb-5 mt-3 d-flex w-75 mx-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M447 56.25C443.5 42 430.7 31.1 416 31.1H96c-14.69 0-27.47 10-31.03 24.25L3.715 304.9C1.247 314.9 0 325.2 0 335.5v96.47c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48v-96.47c0-10.32-1.247-20.6-3.715-30.61L447 56.25zM352 352H160L128 288H72.97L121 96h270l48.03 192H384L352 352z"/></svg>
+            <div class="ms-4 w-100">
+              <%= select_tag 'currency', options_for_select(Payment.currencies.keys.prepend(['All', 'all'])), class: 'form-select', data: {filter: 'currency'} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="btnGroups justify-content-evenly border-bottom-0 d-flex mt-5 pt-4 flex-wrap" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button type="button" class="btn btn-primary me-3"></button><span>Joining</span>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button type="button" class="btn btn-secondary me-3"></button><span>Assurance</span>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button type="button" class="btn btn-success me-3"></button><span>Provide Help</span>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button type="button" class="btn btn-danger me-3"></button><span>Get Help</span>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button type="button" class="btn btn-warning me-3"></button><span>Referral Bonus</span>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button type="button" class="btn btn-info me-3"></button><span>Joining Bonus</span>
+        </li>
+    </ul>
+  </div>
+
+</section>
+
+<% if !current_user.root? %>
+  <div class='row justify-content-center border border-5 py-2'>
+    <div class='col-md-2'>
+      <button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#commitmentAmountPaymentModal" <%= 'disabled' unless policy(PayIn).create? %>>
+      Pay In
+      </button>
+      <span class='text-secondary d-block small'><span class='d-block'>"Acquire" Mavro </span>(Make a Contribution)</span>
+    </div>
+    <div class='col-md-2'>
+      <button type="button" class="btn btn-lg btn-success" data-bs-toggle="modal" data-bs-target="#payOutAmountModal" <%= 'disabled' unless policy(PayOut).create? %>>
+      Pay Out
+      </button>
+      <span class='text-secondary d-block small'><span class='d-block'>"Cash out" your Mavro,</span> (Make a Withdrawal)</span>
+    </div>
+  </div>
+<% end %>
+
+
+<section class="middle-section mt-5 pt-4 mb-5">
+    <div class="container">
+      <div class="row justify-content-evenly">
+        <div id='paymentListContainer'>
+          <%= render partial: 'payments_list' %>
+        </div>
+        <div id='payInCardsContainer'>
+          <%= render partial: 'pay_in_cards' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render partial: 'commitment_amount_modal' if policy(PayIn).create? %>
+<%= render partial: 'pay_out_amount_modal' if policy(PayOut).create? %>

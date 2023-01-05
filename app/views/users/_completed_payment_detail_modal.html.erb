@@ -1,0 +1,22 @@
+<% modalId = "#{uniq_number(payment)}CompletedPaymentDetailModal" %>
+
+<div class="modal fade" id='<%=modalId%>' tabindex="-1" aria-labelledby='<%="#{modalId}Label"%>' aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <%= fa_icon "check-circle 2x" %>
+        <h5 class="modal-title" id='<%="#{modalId}Label"%>'>Complete Payment Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Order Id: <%= uniq_number(payment) %></p>
+        <p>Amount: <%= payment.amount %></p>
+        <p>Submitted Transaction Id: <%= payment.transaction_id %> </p>
+        <p> Order Completed. </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<% minimum_valid_usdt_amount = current_user.payments.usdt.new.minimum_valid_amount %>
+<% minimum_valid_trx_amount = current_user.payments.trx.new.minimum_valid_amount %>
+<% maximum_valid_usdt_amount = Payment.maximum_valid_amount('usdt') %>
+<% maximum_valid_trx_amount = Payment.maximum_valid_amount('trx') %>
+<% read_warning_label = 'I read THE WARNING, and I fully understand all the risks. I make decision to participate in this system, being of sound mind and memory.' %>
+<div class="modal fade" id="commitmentAmountPaymentModal" tabindex="-1" aria-labelledby="commitmentAmountPaymentModalLabel" aria-hidden="true">
+
+  <span id='maximumValidUsdtAmount' class='d-none'><%= maximum_valid_usdt_amount %></span>
+  <span id='maximumValidTrxAmount' class='d-none'><%= maximum_valid_trx_amount %></span>
+  <span id='minimumValidUsdtAmount' class='d-none'><%= minimum_valid_usdt_amount %></span>
+  <span id='minimumValidTrxAmount' class='d-none'><%= minimum_valid_trx_amount %></span>
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_tag :pay_ins, remote: true, id: 'commitmentForm' do %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="commitmentAmountPaymentModalLabel">Commitment Amount</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-5">
+          <div class="mb-5">
+            <% currencies = selectable_currencies.map(&:upcase) %>
+            <label class='form-label'>Currency </label>
+            <%= select_tag :currency, options_for_select(currencies, currencies.first), class: 'form-control', id: 'currency' %>
+          </div>
+          <div class="mb-5">
+            <label class='form-label'>Amount </label>
+            <div class='form-text'>Amount should be multiple of 10<br/><%= "minimum: <span class='valid-minimum-amount-hint'></span> and maximum: <span class='valid-maximum-amount-hint'></span>".html_safe %></div>
+            <%= number_field_tag :amount, nil, class: 'form-control amount-field', step: 10, min: 0, max: 0 %>
+          </div>
+          <div class="form-check">
+            <%= check_box_tag :read_warnings, true, false, class: 'form-check-input' %>
+            <%= label_tag :read_warnings, read_warning_label, class: 'form-check-label' %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= submit_tag 'save order', class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="modal show" id="payInPaymentModal-<%=payment.id%>" tabindex="-1" aria-labelledby="payInPaymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="payInPaymentModalLabel">Pay In Payment</h5>
+      </div>
+      <div class="modal-body">
+        To wallet: <span id='payInAmtwalletNumberToCopy'><%= payment.receiver_wallet_number.strip %></span>
+        <span class="clipboard-btn btn btn-sm btn-primary" data-clipboard-action="copy" data-clipboard-target="#payInAmtwalletNumberToCopy">copy</span>
+        <p>Pay In Amount: <%= payment.amount %></p>
+      </div>
+
+      <%= render partial: 'shared/payment_verification_form', locals: {payment: payment} %>
+    </div>
+  </div>
+</div>

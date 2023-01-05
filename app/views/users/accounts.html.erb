@@ -1,0 +1,22 @@
+<table class="table datatable with-default-setting">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Account Name</th>
+      <th>Card/Account Number</th>
+      <th>Bank</th>
+      <th>BIC/Bank Code</th>
+      <th>Currency Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= "#{User::ACCOUNT_PREFIX}#{current_user.id}" %></td>
+      <td><%= current_user.name %></td>
+      <td><%= current_user.wallet_number %></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>

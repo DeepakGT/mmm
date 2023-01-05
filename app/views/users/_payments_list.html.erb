@@ -1,0 +1,10 @@
+<% @payments.each do |payment| %>
+  <%= render partial: 'payment', locals: {payment: payment} %>
+
+  <%= render partial: 'shared/assurance_payment_modal', locals: {payment: payment} if payment.assurance? && policy(payment).verify? %>
+  <%= render partial: 'shared/pay_in_payment_modal', locals: {payment: payment} if payment.pay_in? && policy(payment).verify? %>
+<% end %>
+<%= will_paginate @payments, :param_name => 'current_payment_page', params: {
+                                        pagintion_for: 'payments',
+                                        current_pay_in_page: params[:current_pay_in_page] || 1
+                                      }, :previous_label => '<', :next_label => '>' %>

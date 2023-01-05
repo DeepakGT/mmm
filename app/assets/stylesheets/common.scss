@@ -1,0 +1,53 @@
+#payInCardsContainer .card-text {
+  margin-bottom: 0px
+}
+
+.modal .modal-header .fa {
+  margin-right: 5px;
+}
+
+// footer | begin
+// html, body {
+//   height: 100%;
+// }
+
+// body {
+//   display: flex;
+//   flex-flow: column;
+
+//   font-family: "Roboto",Arial,Helvetica,sans-serif;
+//   font-size: 16px;
+//   color: #202124;
+//   cursor: auto;
+//   font-style: normal;
+//   font-weight: 300;
+// }
+
+.screen-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+#loader {
+  z-index: 10000;
+  background: aliceblue;
+}
+
+footer {
+  margin-top: auto;
+  background-color: #1993F0;
+}
+// footer | end
+
+table tr.inactive-row {
+  opacity: 0.4;
+}
+
+#googleTranslater {
+  img {
+    width: 0;
+  }
+}
